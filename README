@@ -1,0 +1,32 @@
+CS 4700 - Network Fundamentals
+Project 2 - Web Crawler
+Zheng Hui
+Rory Sawyer
+
+  In this project we implemented a simple web crawler.  We decided to write
+the crawler in Python in order to build upon the knowledge gained in Project 1.
+In order to crawl the provided set of pages, known as "Fakebook", we needed to
+familiarize ourselves with HTTP.  We supported GET and POST requests (although
+POST was only used to log in to Fakebook) as well as a session cookie.  We had
+to include the session cookie in each GET request, otherwise each request we
+sent would return with the log in page.  The source code for this project is
+located in the file crawler.py.
+  First, we would send a get request to Fakebook, receive the log in page, and
+send a POST request with the log in form credentials (which were passed in as
+arguments to the crawler).  From there we would receive a 302 response code
+and be redirected to another Fakebook site.  Upon landing on a Fakebook page
+we would collect each link on the page.  For each page found we would 1) make
+sure it was a Fakebook page and 2) make sure we had not already seen that page.
+After collecting all links that matched the given criteria we would then scan
+the page looking for a secret flag, included on the page in an H2 tag with a 
+class of 'secret_flag'.  This process would repeat until we found all 5 secret
+flags for the given user, and our crawler will stop.
+  The significant problems were formatting and understanding HTTP headers.
+These were problems of implementation, and the only solution was to put in the
+time to meticulously construct and parse these headers.  Finding the flags was
+a problem, but was easily solved using regular expressions.  We are aware that
+the urllib library contains functions that are off-limits for this project, so
+we spared ourselves the temptation of using such functions by only importing
+the function urlencode, which professor Wilson stated on Piazza is OK to use.
+  Overall, this was a very fun project and gave us valuable experience working
+with a popular protocol.
